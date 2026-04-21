@@ -72,6 +72,7 @@ npx db-migrate up
 # Test DB
 npx db-migrate --env test up
 ```
+If you see `[INFO] No migrations to run`, it usually means the DB is already migrated. To re-run from scratch (drops tables), use `npx db-migrate reset` (or `--env test reset`) then `up`.
 
 ## Tests
 ```powershell
