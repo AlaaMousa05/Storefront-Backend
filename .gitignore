@@ -18,9 +18,10 @@ build/
 .env.local
 .env.*.local
 
-# Database migrations (generated JS files, keep only SQL)
-migrations/*.js
-migrations/sqls/*.js
+# Database migrations
+# db-migrate requires JS migration files to exist in the repo; keep them tracked even though we ignore *.js generally.
+!migrations/*.js
+!migrations/**/*.js
 
 # Logs
 logs/

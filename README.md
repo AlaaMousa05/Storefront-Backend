@@ -55,3 +55,25 @@ ENV=dev
 BCRYPT_PASSWORD=your_secure_pepper_string
 SALT_ROUNDS=10
 JWT_SECRET=your_secure_jwt_secret
+```
+
+## Run Locally (Windows PowerShell)
+```powershell
+npm install
+npm run build
+npm start
+```
+
+## Migrations
+```powershell
+# Dev DB
+npx db-migrate up
+
+# Test DB
+npx db-migrate --env test up
+```
+
+## Tests
+```powershell
+npm test
+```
