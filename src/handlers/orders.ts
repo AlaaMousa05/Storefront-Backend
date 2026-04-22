@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { OrderStore } from '../models/order';
 import { verifyAuthToken } from '../middlewares/auth';
+import { getErrorMessage } from '../utils/errors';
 
 const store = new OrderStore();
 
@@ -9,18 +10,30 @@ const currentOrder = async (req: Request, res: Response) => {
   if (isNaN(userId)) {
     return res.status(400).json({ error: 'Invalid user ID' });
   }
-  const order = await store.currentOrderByUser(userId);
-  res.json(order);
+  try {
+    const order = await store.currentOrderByUser(userId);
+    return res.json(order);
+  } catch (err) {
+    return res.status(500).json({ error: getErrorMessage(err) });
+  }
 };
 
 const createOrder = async (req: Request, res: Response) => {
-  const order = await store.create(req.body);
-  res.json(order);
+  try {
+    const order = await store.create(req.body);
+    return res.json(order);
+  } catch (err) {
+    return res.status(400).json({ error: getErrorMessage(err) });
+  }
 };
 
 const addProduct = async (req: Request, res: Response) => {
-  const orderProduct = await store.addProduct(req.body);
-  res.json(orderProduct);
+  try {
+    const orderProduct = await store.addProduct(req.body);
+    return res.json(orderProduct);
+  } catch (err) {
+    return res.status(400).json({ error: getErrorMessage(err) });
+  }
 };
 
 const orderRoutes = (app: express.Application) => {
